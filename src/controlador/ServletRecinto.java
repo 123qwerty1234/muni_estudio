@@ -32,25 +32,25 @@ public class ServletRecinto extends HttpServlet {
     	
     
    	 try {
-    		if(request.getParameter("btnGuardarReserva")!=null) {
-   				String fecha = request.getParameter("txtFechaCanchaDisp");
-   				String hora = request.getParameter("txtHoraCanchaDisp");
-   				String numero =	request.getParameter("txtNumCanchaDisp");
-   				int codigo = Integer.parseInt(request.getParameter("txtCodigoCanchaDisp"));
-   				String run =request.getParameter("txtRunUsuarioCanchaDisp");
-   	 			if(fecha.trim().equals("")||hora.trim().equals("")||numero.trim().equals("")||run.equals("")) {
-   					String error = "campos vacios";
-   					request.getSession().setAttribute("error", error);
-   					request.getRequestDispatcher("error.jsp").forward(request, response);
-   	 				}else {
-	   					  ReservaCanchaDTO s = new ReservaCanchaDTO(fecha, hora, codigo, 1, run, numero);
-	   					  RecintosDTO r = new RecintosDTO(codigo, 2);
-	   					  if(reservDAO.crear(s)==true && resintoDAO.modificar(r)==true ) {
-	   						String error = "reservo correctamente";
-	   						request.getSession().setAttribute("error", error);
-	   						request.getRequestDispatcher("ReultadoCanch.jsp").forward(request, response);
+    		if(request.getParameter("btnGuardarReserva")!=null) {// cuando el boton se preciona
+   				String fecha = request.getParameter("txtFechaCanchaDisp");//capturamos valores
+   				String hora = request.getParameter("txtHoraCanchaDisp"); // apturamos valores
+   				String numero =	request.getParameter("txtNumCanchaDisp"); //apturamos valores
+   				int codigo = Integer.parseInt(request.getParameter("txtCodigoCanchaDisp")); //apturamos valores
+   				String run =request.getParameter("txtRunUsuarioCanchaDisp"); //apturamos valores
+   	 			if(fecha.trim().equals("")||hora.trim().equals("")||numero.trim().equals("")||run.equals("")) {// preguntamo que no esten null
+   					String error = "campos vacios"; //creamos un mensaje
+   					request.getSession().setAttribute("error", error); // lo guardamos
+   					request.getRequestDispatcher("error.jsp").forward(request, response);// lo enviamos
+   	 				}else {// si es positivo
+	   					  ReservaCanchaDTO s = new ReservaCanchaDTO(fecha, hora, codigo, 1, run, numero);// creamos nuestro obj
+	   					  RecintosDTO r = new RecintosDTO(codigo, 2); // creamos nuestro objeto
+	   					  if(reservDAO.crear(s)==true && resintoDAO.modificar(r)==true ) {//si es true el metodo 
+	   						String error = "reservo correctamente"; // mensaje
+	   						request.getSession().setAttribute("error", error); //preaparamos
+	   						request.getRequestDispatcher("ReultadoCanch.jsp").forward(request, response);// lo enviamos
 		   					 }else {
-		   						 	String error = "error en la insercion";
+		   						 	String error = "error en la insercion"; // si no error en la insercion y loo mismo
 		   						 	request.getSession().setAttribute("error", error);
 		   						 	request.getRequestDispatcher("error.jsp").forward(request, response);
 		   					 }
